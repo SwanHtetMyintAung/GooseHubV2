@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.php": "php",
+        "avltree.h": "c",
+        "utilities.h": "c"
+    }
+}
