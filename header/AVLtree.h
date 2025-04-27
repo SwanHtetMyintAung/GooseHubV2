@@ -1,12 +1,13 @@
 #ifndef AVLtree_H
 #define AVLtree_H
-
-#include "User.h"
-
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "CommonIncludes.h"
 struct User;
 
 typedef struct AVL_node{
-    User user;
+    struct User user;
     int height;
     struct AVL_node *left;
     struct AVL_node *right;
@@ -24,11 +25,11 @@ struct AVL_node* AVL_tree_delete_node(struct AVL_node* root,User *entity);
 struct AVL_node* AVL_tree_search_node_by_id(struct AVL_node *root,int query);
 struct AVL_node* AVL_tree_search_by_email(struct AVL_node* root,char* email);
 /**********************definitions************************/
-int max(int a, int b) {
+inline int max(int a, int b) {
     return (a > b) ? a : b;
 }
 //allocate memory for the structure and return a pointer
-struct AVL_node* AVL_tree_create_node(struct User *entity) {
+inline struct AVL_node* AVL_tree_create_node(struct User *entity) {
     struct AVL_node* newNode = (struct AVL_node*)malloc(sizeof(struct AVL_node));
     if (!newNode) {
         // Handle memory allocation failure
@@ -46,17 +47,17 @@ struct AVL_node* AVL_tree_create_node(struct User *entity) {
 }
 
 //getting the height of the node
-int AVL_tree_height(struct AVL_node *node){
+inline int AVL_tree_height(struct AVL_node *node){
     if(node==NULL)return 0;
     return (node->height);
 }
 //finding balance factor of the node . left node's height - right node's height
-int AVL_tree_balance_factor(struct AVL_node *root){
+inline int AVL_tree_balance_factor(struct AVL_node *root){
     return (AVL_tree_height(root->left) - AVL_tree_height(root->right));
 }
 /* if you don't understand how these two works , i recommend you to read blog or watch videos about this subject*/
 //rotate to right
-struct AVL_node* AVL_tree_right_rotate(struct AVL_node* y){
+inline struct AVL_node* AVL_tree_right_rotate(struct AVL_node* y){
     struct AVL_node* x = y->left;
     struct AVL_node* T2 = x->right;
 
@@ -71,7 +72,7 @@ struct AVL_node* AVL_tree_right_rotate(struct AVL_node* y){
     return x;
 }
 //rotate to left
-struct AVL_node* AVL_tree_left_rotate(struct AVL_node* x){
+inline struct AVL_node* AVL_tree_left_rotate(struct AVL_node* x){
     struct AVL_node* y = x->right;
     struct AVL_node* T2 = y->left;
 
@@ -86,7 +87,7 @@ struct AVL_node* AVL_tree_left_rotate(struct AVL_node* x){
     return y;
 }
 
-struct AVL_node* AVL_tree_insert(struct AVL_node *root,User *entity){
+inline struct AVL_node* AVL_tree_insert(struct AVL_node *root,User *entity){
     if(root == NULL){
         root = AVL_tree_create_node(entity);
         return root;
@@ -132,7 +133,7 @@ struct AVL_node* AVL_tree_insert(struct AVL_node *root,User *entity){
 
 }
 //print the data from left to right
-void AVL_tree_inorder_traverse(struct AVL_node* root){
+inline void AVL_tree_inorder_traverse(struct AVL_node* root){
         if(root == NULL) return;
         printf("hello");
         AVL_tree_inorder_traverse(root->left);
@@ -142,7 +143,7 @@ void AVL_tree_inorder_traverse(struct AVL_node* root){
 }
 //for further details comment , you should go read the binary Search Tree file .
 //these two are basically the same
-struct AVL_node* AVL_tree_delete_node(struct AVL_node* root,User* entity){
+inline struct AVL_node* AVL_tree_delete_node(struct AVL_node* root,User* entity){
     if(root == NULL){
         return root;
     }
@@ -229,17 +230,17 @@ struct AVL_node* AVL_tree_delete_node(struct AVL_node* root,User* entity){
     return root;
 }
 
-struct AVL_node* AVL_tree_search_node_by_id(struct AVL_node *root,int query){
+inline struct AVL_node* AVL_tree_search_node_by_id(struct AVL_node *root,int query){
     if(root == NULL || query == root->user.id){
         return root;
     }
     if(query < (root->user.id)){
         return AVL_tree_search_node_by_id(root->left,query);
-    }else if(query > (root->user.id)){
-        return AVL_tree_search_node_by_id(root->right,query);
     }
+    return AVL_tree_search_node_by_id(root->right,query);
+    
 }
-struct AVL_node* AVL_tree_search_by_email(struct AVL_node* root,char* email) {
+inline struct AVL_node* AVL_tree_search_by_email(struct AVL_node* root,char* email) {
     if (root == NULL) {
         return NULL;  // Email not found
     }
