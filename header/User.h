@@ -1,10 +1,10 @@
 #ifndef USER_C
 #define USER_C
 
-struct AVL_node;
 //libraries
 #include "AVLtree.h"
 #include "utilities.h"
+#include <stdio.h>
 
 //symbolic constants
 
@@ -14,22 +14,6 @@ struct AVL_node;
 #define DEFAULT_TOKEN 500
 
 
-//definition for structures
-typedef struct Transition_Record{
-    int record_id;
-    char date[100];
-    char record[100];
-}Transition_Record;
-
-typedef struct User{
-    int suspend;
-    int id;
-    int token;
-    char name[STR_LEN];
-    char email[STR_LEN];
-    char password[PAS_LEN];
-    struct Transition_Record transition_db[MAX_RECORD];
-}User;
 
 
 //declarations
@@ -42,7 +26,7 @@ bool login(struct AVL_node* root,int *g_id);
 //definitions
 
 //takes in adress of user object where you want the data to be saved
-bool registeration(User *user,int totalUser,struct AVL_node** root){
+inline bool registeration(User *user,int totalUser,struct AVL_node** root){
     // if(user != NULL){
     //     printf("This user already has data or faulty initialization!\n");
     //     return false;
@@ -54,12 +38,12 @@ bool registeration(User *user,int totalUser,struct AVL_node** root){
     user->token = DEFAULT_TOKEN;
     //name
     printf("Enter Your Name:");
-    scanf("%s",user->name);
+    scanf_s("%s",user->name);
     //email
     bool isEmail = false;
     while(!isEmail){
         printf("Enter Your Email:");
-        scanf("%s",user->email);
+        scanf_s("%s",user->email);
         isEmail = validate_email(user->email);
         //if the input email wasn't valid , it will ask user to input again
         if(!isEmail){
@@ -76,7 +60,7 @@ bool registeration(User *user,int totalUser,struct AVL_node** root){
     bool isPassword = false;
     while(!isPassword){
         printf("Enter Your Password:");
-        scanf("%s",user->password);
+        scanf_s("%s",user->password);
         isPassword = validate_password(user->password);
         //if the function returns false , this will restart the loop
         if(!isPassword) continue;
@@ -86,14 +70,14 @@ bool registeration(User *user,int totalUser,struct AVL_node** root){
     return true;
 }
 
-bool login(struct AVL_node* root,int *g_id){
+inline bool login(struct AVL_node* root,int *g_id){
     char *l_email , *l_password;
     struct AVL_node* existingUser = (struct AVL_node*)malloc(sizeof(struct AVL_node));
     //email handling
     bool isEmailValid = false;
     while(!isEmailValid){
         printf("Enter Your Email:");
-        scanf("%s",l_email);
+        scanf_s("%s",l_email);
         //check the format of email
         isEmailValid = validate_email(l_email);
         //if the input email wasn't valid , it will ask user to input again

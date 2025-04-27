@@ -18,7 +18,7 @@ void clear_screen();
 bool strings_are_equal(char *destination,char *target);
 
 //get the actual length of the array
-int size_of_array(char *array){
+inline int size_of_array(char *array){
     int size =0;
     //loop through the array until it see "\0"
     for(int i=0;i<STR_LEN;i++){
@@ -29,7 +29,7 @@ int size_of_array(char *array){
 }
 
 //to validate email
-bool validate_email(char *email){
+inline bool validate_email(char *email){
     //get the total length of the array
     int size = size_of_array(email);
     //temp variable for conditions
@@ -55,7 +55,7 @@ bool validate_email(char *email){
         return false;
     }
 }
-bool validate_password(char *password){
+inline bool validate_password(char *password){
     //small letter-> 97-122 , capital letter -> 65-90
     //special character -> 33-46 ,58-64 , 91-96 , 123 ,126
 
@@ -99,7 +99,7 @@ bool validate_password(char *password){
     return is_valid;
 }
 //this is a function to print option as main menu
-void print_main_menu(){
+inline void print_main_menu(){
     printf("****WELCOME TO MY SYSTEM****\n");
     printf("Enter 1 to Register.\n");
     printf("Enter 2 to Login.\n");
@@ -108,14 +108,14 @@ void print_main_menu(){
     printf("Enter an Option:");
 }
 //to clear the screen via terminal
-void clear_screen(){
+inline void clear_screen(){
     int x = system("clear");
     if(x == -1){
         system("cls");
     }
 }
 //return true if the two inputs are the same string
-bool strings_are_equal(char *destination,char *target){
+inline bool strings_are_equal(char *destination,char *target){
     //get the length of the two strings
     int first = size_of_array(destination);
     int second = size_of_array(target);

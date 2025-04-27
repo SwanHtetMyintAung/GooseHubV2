@@ -1,0 +1,17 @@
+build
+build2
+build3
+build4
+build5
+build6
+build7
+build8
+build9
+build10
+
+*.exe
+
+compile_commands.json
+.cache
+
+.vscode

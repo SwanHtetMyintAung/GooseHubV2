@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "library/User.h"
 
+#include "header/User.h"
+#include "sqlite3.h"
 
 int g_user_count = -1;
 int g_login_id = -1;
@@ -17,7 +18,7 @@ int main(){
         int l_option = -1;
         clear_screen();
         print_main_menu();
-        scanf("%d",&l_option);
+        scanf_s("%d",&l_option);
         /**************Options******************/
         //the user cann't be in login state
         if((l_option == 1) && (g_login_id == -1)){
